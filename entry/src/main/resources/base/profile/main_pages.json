@@ -1,0 +1,18 @@
+{
+  "src": [
+    "pages/Welcome",
+    "pages/Login",
+    "pages/Logintwo",
+    "pages/Forget",
+    "pages/Index",
+    "pages/News",
+    "pages/Project",
+    "pages/Profile",
+    "pages/Cart",
+    "pages/Order",
+    "pages/Ai",
+    "pages/Personal",
+    "pages/personal/Name",
+    "pages/Location"
+  ]
+}
