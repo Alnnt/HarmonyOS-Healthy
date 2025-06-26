@@ -3,7 +3,7 @@ import { router } from '@kit.ArkUI'
 @Entry
 @Component
 struct Welcome {
-  @State second: number = 7
+  @State second: number = 5
   @State timer: number = 0
 
   build() {

@@ -7,7 +7,7 @@ export class SeckillGoodsDataSource extends WaterFlowDataSource {
     super();
     getSecKillList().then((res: GoodsType[]) => {
       this.dataArray = res
-      console.log(JSON.stringify(res))
+      console.log('aaaaa ', JSON.stringify(res))
     })
   }
 }

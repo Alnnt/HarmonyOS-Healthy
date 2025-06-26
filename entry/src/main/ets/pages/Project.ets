@@ -1,9 +1,8 @@
 import { TabBar } from '../components/TabBar'
-import { Item } from '../datasource/Type';
-import { WaterFlowDataSource } from '../datasource/WaterFlowDataSource';
-import { LengthMetrics } from '@kit.ArkUI';
 import { WaterFlower } from '../components/WaterFlower';
 import { SeckillGoodsDataSource } from '../datasource/SeckillGoodsDataSource';
+import { HotGoodsDataSource } from '../datasource/HotGoodsDataSource';
+
 
 enum FooterState {
   Loading = 0,
@@ -13,7 +12,8 @@ enum FooterState {
 @Entry
 @Component
 struct ProjectWaterFlow {
-  @State secKillGoodsDataSource: SeckillGoodsDataSource = new SeckillGoodsDataSource();
+  @State secKillGoodsDataSource: SeckillGoodsDataSource = new SeckillGoodsDataSource()
+  @State hotGoodsDataSource: HotGoodsDataSource = new HotGoodsDataSource()
 
   // @Builder
   // TabBarBuilder(name: string) {
@@ -33,13 +33,17 @@ struct ProjectWaterFlow {
         Text("搜索").fontColor("#FFF")
       }.width('100%').height(60).backgroundColor('#487aee')
 
-      Tabs({ barPosition: BarPosition.Start }) {
+      Tabs({ barPosition: BarPosition.Start, index: 1 }) {
+        TabContent() {
+          // WaterFlower({ dataSource: this.secKillGoodsDataSource })
+        }.tabBar('aaaa')
+
         TabContent() {
           WaterFlower({ dataSource: this.secKillGoodsDataSource })
         }.tabBar('秒杀')
 
         TabContent() {
-          WaterFlower({ dataSource: this.secKillGoodsDataSource })
+          WaterFlower({ dataSource: this.hotGoodsDataSource })
         }.tabBar('热门')
       }
       .barMode(BarMode.Scrollable)

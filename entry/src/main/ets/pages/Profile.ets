@@ -28,9 +28,15 @@ struct Profile {
             Text(this.username).fontColor(Color.White).margin({ top: 10 })
 
           }.width('100%').height(200).backgroundColor('#357bf5').onClick(() => {
-            router.pushUrl({
-              url: 'pages/Login'
-            })
+            if (AppStorage.get('nickname')) {
+              router.pushUrl({
+                url: 'pages/Personal'
+              })
+            } else {
+              router.pushUrl({
+                url: 'pages/Login'
+              })
+            }
           })
 
           Column() {
