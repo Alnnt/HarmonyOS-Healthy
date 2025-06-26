@@ -1,19 +1,19 @@
-import { Item } from "./Type";
+import { GoodsType, Item } from "./Type";
 
 // 实现IDataSource接口的对象，用于瀑布流组件加载数据
 export class WaterFlowDataSource implements IDataSource {
-  private dataArray: Item[] = [];
+  protected dataArray: GoodsType[] = [];
   private listeners: DataChangeListener[] = [];
 
   constructor() {
-    for (let i = 0; i < 10; i++) {
-      this.dataArray.push(this.generateRandomItem());
-    }
+    // for (let i = 0; i < 10; i++) {
+    //   this.dataArray.push(this.generateRandomItem());
+    // }
   }
 
 
   // 获取索引对应的数据
-  public getData(index: number): Item {
+  public getData(index: number): GoodsType {
     return this.dataArray[index];
   }
 
@@ -92,7 +92,7 @@ export class WaterFlowDataSource implements IDataSource {
   // 增加数据
   public add1stItem(): void {
     // this.dataArray.splice(0, 0, this.dataArray.length);
-    this.dataArray.splice(0, 0, this.generateRandomItem());
+    // this.dataArray.splice(0, 0, this.generateRandomItem());
 
     this.notifyDataAdd(0);
   }
@@ -142,8 +142,8 @@ export class WaterFlowDataSource implements IDataSource {
 
   // 在数据尾部增加一个元素
   public addLastItem(): void {
-    const item = this.generateRandomItem()
-    this.dataArray.splice(this.dataArray.length, 0, item);
+    // const item = this.generateRandomItem()
+    // this.dataArray.splice(this.dataArray.length, 0, item);
     this.notifyDataAdd(this.dataArray.length - 1);
   }
 
@@ -203,11 +203,11 @@ export class WaterFlowDataSource implements IDataSource {
 
   // 刷新所有元素
   public refreshItems(): void {
-    let newDataArray: Item[] = [];
-    for (let i = 0; i < 15; i++) {
-      newDataArray.push(this.generateRandomItem());
-    }
-    this.dataArray = newDataArray;
+    // let newDataArray: Item[] = [];
+    // for (let i = 0; i < 15; i++) {
+    //   newDataArray.push(this.generateRandomItem());
+    // }
+    // this.dataArray = newDataArray;
     this.notifyDataReload();
   }
 }

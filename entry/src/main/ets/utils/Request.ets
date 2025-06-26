@@ -19,10 +19,10 @@ export class ResponsesData<T> {
 
 interface EmptyInterface {}
 
-const testToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NDY3NTgxOTV9.bRPZ71QQCSrj2V4OrhuFmm6kOAboxkY1igLHtJz5Ra8'
-AppStorage.set<string>(TOKEN_KEY,
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NDY3NTgxOTV9.bRPZ71QQCSrj2V4OrhuFmm6kOAboxkY1igLHtJz5Ra8')
+// const testToken =
+//   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NDY3NTgxOTV9.bRPZ71QQCSrj2V4OrhuFmm6kOAboxkY1igLHtJz5Ra8'
+// AppStorage.set<string>(TOKEN_KEY,
+//   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NDY3NTgxOTV9.bRPZ71QQCSrj2V4OrhuFmm6kOAboxkY1igLHtJz5Ra8')
 
 //Next版本不支持在箭头函数上写纯泛型,
 // function requestHttp(url: url地址, method: 请求方法类型,默认为get, data?: 参数类型) : 返回类型是: Promise里面的T类型的数据
@@ -57,13 +57,13 @@ async function requestHttp<T>(url: string = '', method: http.RequestMethod = htt
     //请求头
     header: {
       'Content-Type': 'application/json',
-      "authorization": testToken
+      "authorization": AppStorage.get(TOKEN_KEY) as string || ''
       // "Authorization": AppStorage.get(TOKEN_KEY) as string || ''
     }
   }
   //发请求
   try {
-
+    // console.log(urlStr)
     const res = await httpRequest.request(urlStr, config)
     console.log('请求url地址', urlStr)
     //res.responseCode响应状态码，这里的401还会认为是请求成功
@@ -84,7 +84,7 @@ async function requestHttp<T>(url: string = '', method: http.RequestMethod = htt
     } else {
       //指定为字符串，然后再转成一个对象，类型是不明确的要使用泛型,返回第一层+泛型,泛型的定义是一个类和之前的有所差距
       const result = JSON.parse(res.result as string) as ResponsesData<T>
-      // console.log(res.result as string)
+      console.log(result.msg)
       //再判断返回的状态码进行处理，不是200都是失败
       if (result.state === 200) {
         return result.data as T

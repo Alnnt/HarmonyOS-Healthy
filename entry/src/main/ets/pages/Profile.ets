@@ -5,16 +5,28 @@ import { router } from '@kit.ArkUI'
 @Component
 struct Profile {
   @State username: string = '未登录'
+  @State avatar: string | Resource | undefined = $r('app.media.profile_avatar')
+
+  onPageShow(): void {
+    const nickname: string | undefined = AppStorage.get('nickname')
+    if (nickname) { // 已登录
+      this.username = nickname
+      this.avatar = AppStorage.get('avatar')
+
+    }
+  }
 
   build() {
     Column() {
       Scroll() {
         Column() {
           Column() {
-            Text('个人中心').fontSize(30).fontColor(Color.White).fontWeight(700).margin({ bottom: 40 })
-            Image($r('app.media.profile_avatar'))
-              .width(60)
+            Text('个人中心').fontSize(25).fontColor(Color.White)
+              .fontWeight(700).margin({ top: 10, bottom: 30 })
+            Image(this.avatar)
+              .width(80).borderRadius(100)
             Text(this.username).fontColor(Color.White).margin({ top: 10 })
+
           }.width('100%').height(200).backgroundColor('#357bf5').onClick(() => {
             router.pushUrl({
               url: 'pages/Login'
@@ -67,12 +79,20 @@ struct Profile {
             Row() {
               Image($r('app.media.g6')).width(15)
               Text('订单管理').margin({ left: 10 })
-            }.width('100%').backgroundColor(Color.White).padding(15)
+            }.width('100%').backgroundColor(Color.White).padding(15).onClick(() => {
+              router.pushUrl({
+                url: "pages/Order"
+              })
+            })
 
             Row() {
               Image($r('app.media.g7')).width(15)
               Text('地址管理').margin({ left: 10 })
-            }.width('100%').backgroundColor(Color.White).padding(15)
+            }.width('100%').backgroundColor(Color.White).padding(15).onClick(() => {
+              router.pushUrl({
+                url: 'pages/Location'
+              })
+            })
 
             Row() {
               Image($r('app.media.g8')).width(15)

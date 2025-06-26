@@ -2,7 +2,8 @@
   "src": [
     "pages/Welcome",
     "pages/Login",
-    "pages/Logintwo",
+    "pages/LoginByCode",
+    "pages/Register",
     "pages/Forget",
     "pages/Index",
     "pages/News",
