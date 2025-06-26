@@ -1,14 +1,25 @@
+import { getSecKillList } from "../api/GoodsApi";
 import { GoodsType, Item } from "./Type";
 
 // 实现IDataSource接口的对象，用于瀑布流组件加载数据
 export class WaterFlowDataSource implements IDataSource {
   protected dataArray: GoodsType[] = [];
   private listeners: DataChangeListener[] = [];
+  private loadDataFunc: () => Promise<GoodsType[]> = async () => {
+    return []
+  }
 
-  constructor() {
+  constructor(loadDataFunc: () => Promise<GoodsType[]>) {
     // for (let i = 0; i < 10; i++) {
     //   this.dataArray.push(this.generateRandomItem());
     // }
+    this.loadDataFunc = loadDataFunc
+    this.refreshItems()
+    // this.loadDataFromBackend().then((res: GoodsType[]) => {
+    //   this.dataArray = res
+    //   console.log(JSON.stringify(res))
+    //
+    // })
   }
 
 
@@ -185,8 +196,8 @@ export class WaterFlowDataSource implements IDataSource {
 
   // 重新加载数据
   public reload(): void {
-    this.dataArray.splice(1, 1);
-    this.dataArray.splice(3, 2);
+    // this.dataArray.splice(1, 1);
+    // this.dataArray.splice(3, 2);
     this.notifyDataReload();
   }
 
@@ -208,6 +219,17 @@ export class WaterFlowDataSource implements IDataSource {
     //   newDataArray.push(this.generateRandomItem());
     // }
     // this.dataArray = newDataArray;
-    this.notifyDataReload();
+    console.log('refreshing')
+    this.loadDataFunc().then((res: GoodsType[]) => {
+      console.log('最终数据')
+      console.log(JSON.stringify(res))
+      this.dataArray = res
+      this.notifyDataReload()
+      setTimeout(() => {
+        this.notifyDataReload()
+      }, 3000)
+    }).catch((err: Error) => {
+      console.error('Error: ' + err.message)
+    })
   }
 }

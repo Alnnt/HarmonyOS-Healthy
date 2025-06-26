@@ -1,12 +1,17 @@
 import { router } from '@kit.ArkUI'
 import { changeNickName } from '../../api/PersonalApi'
+import { User } from '../../api/UserApi'
 
 @Entry
 @Component
 struct Name {
   @State value: string = ''
   @State saveEnable: boolean = false
-  controller: TextInputController = new TextInputController();
+  @StorageProp('user') user: User = Object()
+
+  aboutToAppear(): void {
+    this.value = this.user.nickname
+  }
 
   build() {
     Column() {
@@ -21,6 +26,15 @@ struct Name {
           .fontColor(this.saveEnable ? Color.Orange : Color.Gray)
           .onClick(() => {
             changeNickName(this.value).then(() => {
+              // AppStorage.setOrCreate("nickname", this.value)
+              // this.user.nickname = this.value
+              const newUser: User = {
+                nickname: this.value,
+                avatar: this.user.avatar,
+                mobile: this.user.mobile,
+                token: this.user.token
+              }
+              AppStorage.setOrCreate('user', newUser)
               router.back()
             })
           })
@@ -31,11 +45,11 @@ struct Name {
           .fontSize(15)
           .fontColor(Color.Gray)
           .margin({ top: 10, bottom: 10, left: 15 })
-        TextInput({ text: this.value, placeholder: '填写名字', controller: this.controller })
+        TextInput({ text: $$this.value, placeholder: '填写名字' })
           .width('100%')
           .fontSize(15)
           .backgroundColor(Color.White)
-          .onEditChange(() => {
+          .onChange(() => {
             this.saveEnable = true
           })
         Divider().color(Color.Gray).width('100%')

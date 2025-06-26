@@ -78,10 +78,11 @@ struct Login {
         .onClick(() => {
           smsLogin(this.phone, this.verificationCode).then((user: User) => {
             console.log(JSON.stringify(user))
-            AppStorage.setOrCreate("nickname", user.nickname)
-            AppStorage.setOrCreate("avatar", user.avatar)
-            AppStorage.setOrCreate("mobile", user.mobile)
-            AppStorage.setOrCreate("token", user.token)
+            AppStorage.setOrCreate("user", user)
+            // AppStorage.setOrCreate("nickname", user.nickname)
+            // AppStorage.setOrCreate("avatar", user.avatar)
+            // AppStorage.setOrCreate("mobile", user.mobile)
+            // AppStorage.setOrCreate("token", user.token)
 
             router.replaceUrl({ url: 'pages/Index' })
           })

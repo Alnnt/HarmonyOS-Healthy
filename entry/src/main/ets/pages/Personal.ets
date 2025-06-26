@@ -1,8 +1,26 @@
 import { router } from '@kit.ArkUI'
+import { User } from '../api/UserApi'
+
+// import { photoAccessHelper } from '@kit.MediaLibraryKit';
+// import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
 struct ProfilePage {
+  @StorageProp('user') user: User = Object()
+
+  uploadAvatar() {
+    // let PhotoSelectOptions = new photoAccessHelper.PhotoSelectOptions();
+    // PhotoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE;
+    // PhotoSelectOptions.maxSelectNumber = 1;
+    // let photoPicker = new photoAccessHelper.PhotoViewPicker();
+    // photoPicker.select(PhotoSelectOptions).then((PhotoSelectResult: photoAccessHelper.PhotoSelectResult) => {
+    //   console.info('PhotoViewPicker.select successfully, PhotoSelectResult uri: ' + JSON.stringify(PhotoSelectResult));
+    // }).catch((err: BusinessError) => {
+    //   console.error(`PhotoViewPicker.select failed with err: ${err.code}, ${err.message}`);
+    // });
+  }
+
   build() {
     Column() {
       Text('<').fontSize(25).position({ top: 5, left: 5 }).zIndex(1)
@@ -33,12 +51,15 @@ struct ProfilePage {
       // 头像和完成度
       Row() {
         Row() {
-          Image($r('app.media.per1'))
+          Image(this.user.avatar ? this.user.avatar : $r('app.media.per1'))
             .width(100)
             .height(100)
             .borderRadius(50)
             .border({ width: 2, color: Color.White })
             .offset({ y: -30 })
+            .onClick(() => {
+              this.uploadAvatar()
+            })
           // .position({ x: '36%', y: -35 })
         }
         .width("100%")
@@ -78,7 +99,7 @@ struct ProfilePage {
               .fontColor('#333333')
               .width(90)
 
-            Text('墨沫')
+            Text(this.user.nickname)
               .fontSize(16)
               .fontColor('#333333')
               .layoutWeight(1)

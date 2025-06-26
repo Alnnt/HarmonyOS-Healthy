@@ -14,7 +14,7 @@ struct Welcome {
         Text("运动总有新玩法").fontSize(14).fontColor("#888").margin({ top: 10 })
       }.position({ x: '35%', y: '15%' }).zIndex(2)
 
-      Image($r('app.media.splash_bg')).width('100%').height('100%')
+      Image($r('app.media.splash_bg')).width('100%').height('1 00%')
       Row() {
         Text('跳过 ' + this.second.toString())
           .backgroundColor(Color.Black)
@@ -44,7 +44,7 @@ struct Welcome {
     const timeDecline = () => {
       this.second--
       if (this.second == 0) {
-        router.pushUrl({
+        router.replaceUrl({
           url: 'pages/Index'
         })
       }

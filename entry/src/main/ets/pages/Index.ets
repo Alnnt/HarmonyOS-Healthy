@@ -1,4 +1,6 @@
+import { User } from '../api/UserApi';
 import { TabBar } from '../components/TabBar';
+import { router } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -6,6 +8,15 @@ struct Index {
   @State message: string = '';
   @State todos: string[] = []
   @State flag: boolean = false;
+  @StorageProp('user') user: User = Object()
+
+  aboutToAppear(): void {
+    if (!this.user.nickname) {
+      router.pushUrl({
+        url: 'pages/Login'
+      })
+    }
+  }
 
   build() {
     Column() {

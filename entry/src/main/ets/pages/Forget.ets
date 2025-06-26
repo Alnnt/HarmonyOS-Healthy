@@ -78,7 +78,7 @@ struct ForgotPasswordPage {
 
     // 返回登录页面
     setTimeout(() => {
-      router.replace({ url: 'pages/LoginPage' });
+      router.replaceUrl({ url: 'pages/LoginPage' });
     }, 2000);
   }
 
@@ -120,7 +120,7 @@ struct ForgotPasswordPage {
         // 第一步：验证身份
         Column() {
           // 手机号输入框
-          Row(){
+          Row() {
             Image($r('app.media.username')).width(20)
             TextInput({ placeholder: '请输入注册手机号' })
               .backgroundColor(Color.White)
@@ -128,16 +128,17 @@ struct ForgotPasswordPage {
                 this.phone = value;
                 this.errorMessage = '';
               })
-          }.width('80%')
-          .border({ width:1, color:'#ccc' })
-          .padding({left:10,right:10})
+          }
+          .width('80%')
+          .border({ width: 1, color: '#ccc' })
+          .padding({ left: 10, right: 10 })
           .borderRadius(6)
           .margin({ bottom: 30 })
 
           // 验证码输入框
           Row() {
             Image($r('app.media.password')).width(20)
-            TextInput({placeholder:'请输入验证码'})
+            TextInput({ placeholder: '请输入验证码' })
               .layoutWeight(1)
               .backgroundColor(Color.White)
               .onChange((value: string) => {
@@ -148,9 +149,10 @@ struct ForgotPasswordPage {
               .width(100)
               .enabled(this.countdown === 0)
               .onClick(() => this.sendVerificationCode())
-          }.width('80%')
-          .border({ width:1, color:'#ccc' })
-          .padding({left:10,right:5})
+          }
+          .width('80%')
+          .border({ width: 1, color: '#ccc' })
+          .padding({ left: 10, right: 5 })
           .borderRadius(6)
           .margin({ bottom: 30 })
 
@@ -178,8 +180,8 @@ struct ForgotPasswordPage {
               })
           }
           .width('80%')
-          .border({ width:1, color:'#ccc' })
-          .padding({left:10,right:10})
+          .border({ width: 1, color: '#ccc' })
+          .padding({ left: 10, right: 10 })
           .borderRadius(6)
           .margin({ bottom: 30 })
 
@@ -197,8 +199,8 @@ struct ForgotPasswordPage {
               })
           }
           .width('80%')
-          .border({ width:1, color:'#ccc' })
-          .padding({left:10,right:10})
+          .border({ width: 1, color: '#ccc' })
+          .padding({ left: 10, right: 10 })
           .borderRadius(6)
           .margin({ bottom: 30 })
 

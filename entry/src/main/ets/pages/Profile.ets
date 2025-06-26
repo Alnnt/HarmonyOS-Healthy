@@ -1,18 +1,18 @@
 import { TabBar } from '../components/TabBar'
 import { router } from '@kit.ArkUI'
+import { User } from '../api/UserApi'
 
 @Entry
 @Component
 struct Profile {
   @State username: string = '未登录'
   @State avatar: string | Resource | undefined = $r('app.media.profile_avatar')
+  @StorageProp('user') user: User = Object()
 
   onPageShow(): void {
-    const nickname: string | undefined = AppStorage.get('nickname')
-    if (nickname) { // 已登录
-      this.username = nickname
-      this.avatar = AppStorage.get('avatar')
-
+    if (this.user.nickname) { // 已登录
+      this.username = this.user.nickname
+      this.avatar = this.user.avatar
     }
   }
 
@@ -28,7 +28,7 @@ struct Profile {
             Text(this.username).fontColor(Color.White).margin({ top: 10 })
 
           }.width('100%').height(200).backgroundColor('#357bf5').onClick(() => {
-            if (AppStorage.get('nickname')) {
+            if (this.user.nickname) {
               router.pushUrl({
                 url: 'pages/Personal'
               })
@@ -77,27 +77,45 @@ struct Profile {
               Image($r('app.media.g5')).width(15)
               Text('个人资料').margin({ left: 10 })
             }.width('100%').backgroundColor(Color.White).padding(15).onClick(() => {
-              router.pushUrl({
-                url: 'pages/Personal'
-              })
+              if (this.user.nickname) {
+                router.pushUrl({
+                  url: 'pages/Personal'
+                })
+              } else {
+                router.pushUrl({
+                  url: 'pages/Login'
+                })
+              }
             })
 
             Row() {
               Image($r('app.media.g6')).width(15)
               Text('订单管理').margin({ left: 10 })
             }.width('100%').backgroundColor(Color.White).padding(15).onClick(() => {
-              router.pushUrl({
-                url: "pages/Order"
-              })
+              if (this.user.nickname) {
+                router.pushUrl({
+                  url: 'pages/Personal'
+                })
+              } else {
+                router.pushUrl({
+                  url: "pages/Order"
+                })
+              }
             })
 
             Row() {
               Image($r('app.media.g7')).width(15)
               Text('地址管理').margin({ left: 10 })
             }.width('100%').backgroundColor(Color.White).padding(15).onClick(() => {
-              router.pushUrl({
-                url: 'pages/Location'
-              })
+              if (this.user.nickname) {
+                router.pushUrl({
+                  url: 'pages/Personal'
+                })
+              } else {
+                router.pushUrl({
+                  url: 'pages/Location'
+                })
+              }
             })
 
             Row() {

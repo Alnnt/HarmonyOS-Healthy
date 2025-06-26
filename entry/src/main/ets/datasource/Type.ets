@@ -47,3 +47,19 @@ export interface GoodsType {
   longitude: number
   goods_imgs2: string[]
 }
+
+export interface CategoryType {
+  cat_id: number
+  cat_img: string
+  cat_name: string
+  cat_desc: string
+  pid: number
+  keywords: string
+  sort: number
+  url: string
+  filter_attr: string
+  is_show: number
+  updated_at: string
+  total: number
+  level: number
+}
